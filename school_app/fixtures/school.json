@@ -1,0 +1,74 @@
+[
+    {
+        "model": "school_app.teacher",
+        "pk": 1,
+        "fields": {
+            "name": "Иван Петрович Смирнов",
+            "subject": "Математика"
+        }
+    },
+    {
+        "model": "school_app.teacher",
+        "pk": 2,
+        "fields": {
+            "name": "Мария Ивановна Петрова",
+            "subject": "Русский язык"
+        }
+    },
+    {
+        "model": "school_app.teacher",
+        "pk": 3,
+        "fields": {
+            "name": "Анна Сергеевна Иванова",
+            "subject": "Английский язык"
+        }
+    },
+    {
+        "model": "school_app.teacher",
+        "pk": 4,
+        "fields": {
+            "name": "Петр Васильевич Сидоров",
+            "subject": "Физика"
+        }
+    },
+    {
+        "model": "school_app.student",
+        "pk": 1,
+        "fields": {
+            "name": "Алексей Иванов",
+            "age": 12,
+            "grade": "7А",
+            "teachers": [1, 2]
+        }
+    },
+    {
+        "model": "school_app.student",
+        "pk": 2,
+        "fields": {
+            "name": "Мария Петрова",
+            "age": 13,
+            "grade": "8Б",
+            "teachers": [2, 3]
+        }
+    },
+    {
+        "model": "school_app.student",
+        "pk": 3,
+        "fields": {
+            "name": "Дмитрий Сидоров",
+            "age": 14,
+            "grade": "9А",
+            "teachers": [1, 4]
+        }
+    },
+    {
+        "model": "school_app.student",
+        "pk": 4,
+        "fields": {
+            "name": "Екатерина Смирнова",
+            "age": 11,
+            "grade": "6В",
+            "teachers": [3]
+        }
+    }
+]

@@ -1,0 +1,43 @@
+{% extends 'school_app/base.html' %}
+
+{% block title %}Список учеников{% endblock %}
+
+{% block content %}
+    <h1>👨‍🎓 Список учеников</h1>
+    <div class="stats">
+        Всего учеников: <strong>{{ students|length }}</strong>
+    </div>
+
+    {% for student in students %}
+        <div class="student-item">
+            <div class="student-name">
+                {{ student.name }}
+                <span class="badge">{{ student.grade }} класс</span>
+            </div>
+            <div class="student-info">Возраст: {{ student.age }} лет</div>
+
+            {% if student.teachers.all %}
+                <div class="teachers-list">
+                    <strong>👨‍🏫 Учителя:</strong>
+                    {% for teacher in student.teachers.all %}
+                        <div class="teacher-item">
+                            • {{ teacher.name }} — <strong>{{ teacher.subject }}</strong>
+                        </div>
+                    {% endfor %}
+                </div>
+            {% else %}
+                <div class="empty-message">
+                    Нет назначенных учителей
+                </div>
+            {% endif %}
+        </div>
+    {% empty %}
+        <div class="empty-state">
+            <div class="icon">📚</div>
+            <p>Нет учеников в базе данных.</p>
+            <p style="font-size: 14px; margin-top: 10px;">
+                Создайте их через <a href="/admin/">админку</a>
+            </p>
+        </div>
+    {% endfor %}
+{% endblock %}
