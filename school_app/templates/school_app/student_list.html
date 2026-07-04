@@ -4,10 +4,78 @@
 
 {% block content %}
     <h1>👨‍🎓 Список учеников</h1>
+
+    <!-- ЗАДАНИЕ 2: анализ SQL-запросов -->
+    {% if show_analysis %}
+        <div class="query-info">
+            <h3>📊 Анализ SQL-запросов</h3>
+            <p>
+                <strong>Количество SQL-запросов:</strong>
+                <span class="{% if is_bad_version %}bad{% else %}good{% endif %}">
+                    {{ queries_count }}
+                </span>
+            </p>
+            <p>
+                <strong>Статус:</strong>
+                {% if is_bad_version %}
+                    <span class="bad">❌ N+1 проблема! Каждый студент вызывает отдельный запрос.</span>
+                {% else %}
+                    <span class="good">✅ Оптимизировано! Использован prefetch_related.</span>
+                {% endif %}
+            </p>
+
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Версия</th>
+                        <th>Количество запросов</th>
+                        <th>Описание</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Без оптимизации</td>
+                        <td>N + 1</td>
+                        <td>Для каждого студента отдельный запрос к teachers</td>
+                    </tr>
+                    <tr style="background: #f0fff4;">
+                        <td><strong>С prefetch_related</strong></td>
+                        <td><strong>2</strong></td>
+                        <td>Все данные загружаются за 2 запроса</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            {% if queries %}
+                <details>
+                    <summary style="cursor: pointer; color: #4299e1; font-weight: bold;">
+                        🔍 Показать SQL-запросы
+                    </summary>
+                    <div class="query-details">
+                        {% for query in queries %}
+                            <div class="sql-query">
+                                <strong>Запрос #{{ forloop.counter }}</strong>
+                                <div style="color: #fbd38d; white-space: pre-wrap; word-break: break-all;">
+                                    {{ query.sql|safe }}
+                                </div>
+                                <div style="color: #a0aec0; font-size: 11px;">
+                                    Время: {{ query.time }} ms
+                                </div>
+                            </div>
+                        {% empty %}
+                            <p>Нет выполненных запросов</p>
+                        {% endfor %}
+                    </div>
+                </details>
+            {% endif %}
+        </div>
+    {% endif %}
+
     <div class="stats">
         Всего учеников: <strong>{{ students|length }}</strong>
     </div>
 
+    <!-- ЗАДАНИЕ 1: вложенный цикл для вывода всех учителей -->
     {% for student in students %}
         <div class="student-item">
             <div class="student-name">
@@ -19,6 +87,7 @@
             {% if student.teachers.all %}
                 <div class="teachers-list">
                     <strong>👨‍🏫 Учителя:</strong>
+                    <!-- ВЛОЖЕННЫЙ ЦИКЛ -->
                     {% for teacher in student.teachers.all %}
                         <div class="teacher-item">
                             • {{ teacher.name }} — <strong>{{ teacher.subject }}</strong>
@@ -26,14 +95,12 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <div class="empty-message">
-                    Нет назначенных учителей
-                </div>
+                <div class="empty-message">Нет назначенных учителей</div>
             {% endif %}
         </div>
     {% empty %}
         <div class="empty-state">
-            <div class="icon">📚</div>
+            <p style="font-size: 24px;">📚</p>
             <p>Нет учеников в базе данных.</p>
             <p style="font-size: 14px; margin-top: 10px;">
                 Создайте их через <a href="/admin/">админку</a>

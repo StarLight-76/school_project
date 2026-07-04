@@ -1,4 +1,3 @@
-# school_project/settings.py
 import os
 from pathlib import Path
 
@@ -17,8 +16,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'school_app',  # Добавляем наше приложение
-    #'debug_toolbar',  # Для дополнительного задания
+    'school_app',                     # наше приложение
+    'debug_toolbar',                  # для второго задания
 ]
 
 MIDDLEWARE = [
@@ -29,7 +28,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    #'debug_toolbar.middleware.DebugToolbarMiddleware',  # Для debug-toolbar
+    'debug_toolbar.middleware.DebugToolbarMiddleware',  # для второго задания
 ]
 
 ROOT_URLCONF = 'school_project.urls'
@@ -60,18 +59,10 @@ DATABASES = {
 }
 
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
 LANGUAGE_CODE = 'ru-ru'
@@ -80,10 +71,9 @@ USE_I18N = True
 USE_TZ = True
 
 STATIC_URL = 'static/'
-
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# Для debug-toolbar
+# для debug-toolbar (второе задание)
 INTERNAL_IPS = [
     '127.0.0.1',
 ]

@@ -1,6 +1,5 @@
 from django.db import models
 
-
 class Teacher(models.Model):
     name = models.CharField('Имя', max_length=100)
     subject = models.CharField('Предмет', max_length=100)
@@ -18,11 +17,11 @@ class Student(models.Model):
     age = models.IntegerField('Возраст')
     grade = models.CharField('Класс', max_length=10)
 
-    # Меняем ForeignKey на ManyToManyField
+    # ЗАДАНИЕ 1: меняем ForeignKey на ManyToManyField
     teachers = models.ManyToManyField(
         Teacher,
         verbose_name='Учителя',
-        related_name='students',
+        related_name='students',   # для обратной связи
         blank=True
     )
 

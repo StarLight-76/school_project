@@ -30,14 +30,16 @@
             padding: 15px;
             border-radius: 8px;
             margin-bottom: 30px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
         }
         .nav a {
             color: white;
             text-decoration: none;
-            padding: 10px 20px;
+            padding: 8px 16px;
             border-radius: 6px;
             transition: background 0.3s;
-            margin-right: 10px;
         }
         .nav a:hover {
             background: #4a5568;
@@ -51,6 +53,9 @@
             padding: 15px 20px;
             margin-bottom: 15px;
             border-left: 4px solid #4299e1;
+        }
+        .student-item.teacher-item-card {
+            border-left-color: #48bb78;
         }
         .student-name {
             font-size: 18px;
@@ -104,28 +109,85 @@
             margin-bottom: 20px;
             color: #2c5282;
         }
+        .query-info {
+            margin-top: 20px;
+            padding: 15px 20px;
+            background: #fefcbf;
+            border-radius: 8px;
+            border: 2px solid #d69e2e;
+        }
+        .query-info .good {
+            color: #38a169;
+            font-weight: bold;
+        }
+        .query-info .bad {
+            color: #e53e3e;
+            font-weight: bold;
+        }
+        .query-details {
+            margin-top: 10px;
+            padding: 10px;
+            background: #2d3748;
+            color: #e2e8f0;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        .query-details .sql-query {
+            color: #68d391;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #4a5568;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            text-align: center;
+        }
+        .comparison-table th {
+            background: #2d3748;
+            color: white;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f7fafc;
+        }
+        code {
+            background: #edf2f7;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 13px;
+        }
         .empty-state {
             text-align: center;
             padding: 60px 20px;
             color: #a0aec0;
-        }
-        .empty-state .icon {
-            font-size: 48px;
-            margin-bottom: 20px;
-        }
-        code {
-            background: #edf2f7;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 14px;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="nav">
-            <a href="{% url 'school_app:student_list' %}">👨‍🎓 Ученики</a>
-            <a href="{% url 'school_app:teacher_list' %}">👨‍🏫 Учителя</a>
+            <a href="{% url 'school_app:student_list' %}" {% if request.resolver_match.url_name == 'student_list' %}class="active"{% endif %}>
+                👨‍🎓 Ученики
+            </a>
+            <a href="{% url 'school_app:teacher_list' %}" {% if request.resolver_match.url_name == 'teacher_list' %}class="active"{% endif %}>
+                👨‍🏫 Учителя
+            </a>
+            <a href="{% url 'school_app:student_list_analysis' %}" {% if request.resolver_match.url_name == 'student_list_analysis' %}class="active"{% endif %}>
+                📊 Анализ (оптимизировано)
+            </a>
+            <a href="{% url 'school_app:student_list_bad' %}" {% if request.resolver_match.url_name == 'student_list_bad' %}class="active"{% endif %}>
+                🐌 Без оптимизации
+            </a>
             <a href="/admin/">⚙️ Админка</a>
         </div>
         {% block content %}{% endblock %}

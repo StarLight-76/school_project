@@ -9,12 +9,13 @@
     </div>
 
     {% for teacher in teachers %}
-        <div class="student-item" style="border-left-color: #48bb78;">
+        <div class="student-item teacher-item-card">
             <div class="student-name">
                 {{ teacher.name }}
                 <span class="badge-subject">{{ teacher.subject }}</span>
             </div>
 
+            <!-- Используем related_name='students' -->
             {% if teacher.students.all %}
                 <div class="teachers-list">
                     <strong>👨‍🎓 Ученики:</strong>
@@ -25,14 +26,12 @@
                     {% endfor %}
                 </div>
             {% else %}
-                <div class="empty-message">
-                    Нет учеников у этого учителя
-                </div>
+                <div class="empty-message">Нет учеников у этого учителя</div>
             {% endif %}
         </div>
     {% empty %}
         <div class="empty-state">
-            <div class="icon">📚</div>
+            <p style="font-size: 24px;">📚</p>
             <p>Нет учителей в базе данных.</p>
             <p style="font-size: 14px; margin-top: 10px;">
                 Создайте их через <a href="/admin/">админку</a>
